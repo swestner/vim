@@ -1,0 +1,56 @@
+# Load posh-git example profile
+. 'C:\tools\poshgit\dahlbyk-posh-git-869d4c5\profile.example.ps1'
+ismo z
+ismo psget
+
+Set-Alias x explorer
+Set-Alias ex explorer
+Set-Alias e "C:\Program Files (x86)\Notepad++\notepad++.exe"
+Set-Alias npp "C:\Program Files (x86)\Notepad++\notepad++.exe"
+Set-Alias edit vim
+Set-Alias v vim
+Set-Alias _vimrc "C:\Program Files (x86)\vim\_vimrc"
+$ccgit = "https://github.com/CareerCruising"
+Remove-Item alias:\curl
+
+
+
+function ccsql {
+  param(
+    [parameter(mandatory=$true, position=1)]
+    [string]$query,
+  
+    [parameter(mandatory=$false, position=2)]
+    [string]$server = ".",
+    
+    [parameter(mandatory=$false, position=3)]
+    [string]$database = "CC3"
+  )
+  
+
+  if($server -match 'st?a?g?e?'){
+     $server = "192.168.11.49"		  
+     $database = "xfunk_cc3_ci"	  
+  }
+
+  Invoke-Sqlcmd -ServerInstance $server -Database $database -Username ccwebadmin -Password crm5au1g -Query $query | format-table -auto
+}
+
+
+function kill-ex{
+  
+  }
+
+function dd{    
+    Param(
+    [String] $folder
+    )    
+    $tempdir = [system.guid]::newguid().tostring()
+    $tempdir = 'c:\' + $tempdir
+    md $tempdir | Out-Null
+
+    robocopy $tempdir $folder /mir /njh /njs /ndl /nc /ns | Out-Null
+    del $folder -force -recurse | Out-Null
+    del $tempdir -force | Out-Null
+    write 'done!'
+}

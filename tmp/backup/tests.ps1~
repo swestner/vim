@@ -1,0 +1,12 @@
+﻿Import-Module csake
+$cur = $pwd
+$params = "server=.;database=cc3"
+try {
+  cd C:\workspace\CC3_database
+  invoke-csake -t pack -r $pwd -b 'Octo' -d 'cc3-test' -p $params
+}catch {
+    Write-Output  $_.Exception.Message
+}finally {
+  cd $cur
+  Remove-Module csake
+}
