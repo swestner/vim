@@ -3,6 +3,5 @@
 **/*.un~
 **/$profile
 tmp
-bundle
 bkup
-**/bundle/*
+**/bundle/
